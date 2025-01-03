@@ -1,0 +1,49 @@
+# Byte-compiled files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Django stuff
+*.log
+*.pot
+*.pyc
+*.pyo
+*.sqlite3
+
+# Environment variables
+.env
+
+# Virtual environment
+venv/
+env/
+ENV/
+.venv/
+
+# IDEs and Editors
+.idea/
+.vscode/
+*.swp
+*~
+
+# Static files
+static/
+staticfiles/
+
+# Media files
+media/
+
+# Migrations
+*/migrations/__pycache__/
+*/migrations/*.pyc
+*/migrations/*.pyo
+*/migrations/*.log
+
+# MacOS files
+.DS_Store
+
+# Docker
+*.pid
+*.bak
+*.swp
+*.tmp
+.dockerignore
