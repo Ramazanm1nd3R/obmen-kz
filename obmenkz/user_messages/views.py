@@ -85,8 +85,9 @@ class MessageCreateView(generics.CreateAPIView):
 
     def perform_create(self, serializer):
         thread = serializer.validated_data['thread']
+        # Проверка на участие в диалоге
         if self.request.user != thread.buyer and self.request.user != thread.seller:
-            raise PermissionError("You can only send messages in your own threads.")
+            raise PermissionError("You can only send messages in threads where you are a participant.")
         serializer.save(sender=self.request.user)
 
 
@@ -113,6 +114,7 @@ class MarkMessageAsReadView(APIView):
     def post(self, request, message_id):
         try:
             message = Message.objects.get(id=message_id)
+            # Проверка на участие в диалоге
             if message.thread.buyer != request.user and message.thread.seller != request.user:
                 return Response({"error": "You can only mark messages in your own threads."}, status=403)
             message.is_read = True
