@@ -1,6 +1,7 @@
 import os
 from pathlib import Path
 from dotenv import load_dotenv
+from datetime import timedelta
 
 # Загрузка .env файла
 load_dotenv()
@@ -34,6 +35,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 
     'rest_framework',
+    'rest_framework_simplejwt',
     'drf_yasg',
     
     'reviews',
@@ -46,7 +48,18 @@ REST_FRAMEWORK = {
     'DEFAULT_RENDERER_CLASSES': [
         'rest_framework.renderers.JSONRenderer',
         'rest_framework.renderers.BrowsableAPIRenderer',
+    ],
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
     ]
+}
+
+SIMPLE_JWT = {
+    'ACCESS_TOKEN_LIFETIME': timedelta(minutes=30),  # Время жизни access-токена
+    'REFRESH_TOKEN_LIFETIME': timedelta(days=1),     # Время жизни refresh-токена
+    'ROTATE_REFRESH_TOKENS': True,                  # Ротация refresh-токенов при обновлении
+    'BLACKLIST_AFTER_ROTATION': True,               # Блокировка старых refresh-токенов
+    'AUTH_HEADER_TYPES': ('Bearer',),               # Формат заголовка авторизации
 }
 
 MIDDLEWARE = [

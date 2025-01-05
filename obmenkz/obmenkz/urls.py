@@ -20,13 +20,8 @@ schema_view = get_schema_view(
 )
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
-
-    path('api/v1/carts/', include('carts.urls')),
-    path('api/v1/reviews/', include('reviews.urls')),
-    path('api/v1/users/', include('users.urls')),
-    path('api/v1/user-messages/', include('user_messages.urls')),
-
+    path('admin/', admin.site.urls),  # Админ панель
+    path('api/v1/', include('api.urls')),  # Подключение всех API через один файл
     path('swagger/', schema_view.with_ui('swagger', cache_timeout=0), name='schema-swagger-ui'),
     path('redoc/', schema_view.with_ui('redoc', cache_timeout=0), name='schema-redoc'),
 ]

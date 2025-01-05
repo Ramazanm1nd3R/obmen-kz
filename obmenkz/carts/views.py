@@ -6,6 +6,13 @@ from drf_yasg.utils import swagger_auto_schema
 from drf_yasg import openapi
 from .models import Cart, CartImage
 from .serializers import CartSerializer, CartImageUploadSerializer
+from rest_framework.permissions import IsAuthenticated
+
+class ProtectedView(APIView):
+    permission_classes = [IsAuthenticated]
+
+    def get(self, request):
+        return Response({"message": "Вы авторизованы!"})
 
 # Список объявлений и создание нового
 class CartListCreateView(generics.ListCreateAPIView):
