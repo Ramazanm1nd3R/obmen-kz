@@ -37,6 +37,7 @@ INSTALLED_APPS = [
     'rest_framework',
     'rest_framework_simplejwt',
     'drf_yasg',
+    'corsheaders',
     
     'reviews',
     'users',
@@ -70,7 +71,17 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+
+    'corsheaders.middleware.CorsMiddleware',  # Добавляем CORS Middleware
+    'django.middleware.common.CommonMiddleware',  # Общий Middleware Django
 ]
+
+# CORS_ALLOWED_ORIGINS = [
+#     "http://localhost:3000",  # Разрешаем запросы с фронтенда
+# ]
+
+# Для разработки разрешаем все запросы
+CORS_ALLOW_ALL_ORIGINS = True
 
 ROOT_URLCONF = 'obmenkz.urls'
 
