@@ -1,52 +1,50 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import apiClient from "../api/api";
+import axios from "../api/api";
 import { toast } from "react-toastify";
 
 const LoginPage = () => {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [formData, setFormData] = useState({ email: "", password: "" });
   const navigate = useNavigate();
 
-  const handleLogin = async (e) => {
+  const handleChange = (e) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await apiClient.post("/users/auth/token/", {
-        email,
-        password,
-      });
+      const response = await axios.post("/users/auth/token/", formData);
       localStorage.setItem("accessToken", response.data.access);
       localStorage.setItem("refreshToken", response.data.refresh);
-      toast.success("Logged in successfully!");
-      navigate("/profile");
+      toast.success("Успешный вход!");
+      navigate("/");
     } catch (error) {
-      toast.error("Invalid credentials!");
+      toast.error("Ошибка входа. Проверьте данные.");
     }
   };
 
   return (
     <div>
-      <h1>Login</h1>
-      <form onSubmit={handleLogin}>
-        <div>
-          <label>Email:</label>
-          <input
-            type="email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            required
-          />
-        </div>
-        <div>
-          <label>Password:</label>
-          <input
-            type="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            required
-          />
-        </div>
-        <button type="submit">Login</button>
+      <h1>Вход</h1>
+      <form onSubmit={handleSubmit}>
+        <label>Email:</label>
+        <input
+          type="email"
+          name="email"
+          value={formData.email}
+          onChange={handleChange}
+          required
+        />
+        <label>Пароль:</label>
+        <input
+          type="password"
+          name="password"
+          value={formData.password}
+          onChange={handleChange}
+          required
+        />
+        <button type="submit">Войти</button>
       </form>
     </div>
   );

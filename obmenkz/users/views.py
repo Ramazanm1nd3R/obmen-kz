@@ -7,7 +7,7 @@ from django.contrib.auth.password_validation import validate_password
 from django.core.exceptions import ValidationError
 from .models import CustomUser
 from .serializers import CustomUserSerializer, RegistrationSerializer
-
+from rest_framework.generics import RetrieveAPIView
 
 # Получение данных о текущем пользователе
 class CurrentUserView(APIView):
@@ -113,3 +113,7 @@ class RegisterView(APIView):
             serializer.save()
             return Response({"message": "User registered successfully."}, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    
+class UserDetailView(RetrieveAPIView):
+    queryset = CustomUser.objects.all()
+    serializer_class = CustomUserSerializer
