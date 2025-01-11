@@ -1,73 +1,43 @@
 import React, { useState } from "react";
+import apiClient from "../api/api";
 import { useNavigate } from "react-router-dom";
-import axios from "../api/api";
-import { toast } from "react-toastify";
+import "../styles/RegisterPage.css";
 
 const RegisterPage = () => {
-  const [formData, setFormData] = useState({
-    username: "",
-    email: "",
-    password: "",
-    confirmPassword: "",
-  });
+  const [formData, setFormData] = useState({ username: "", email: "", password: "", password_confirm: "" });
+  const [error, setError] = useState(null);
   const navigate = useNavigate();
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
-    if (formData.password !== formData.confirmPassword) {
-      toast.error("Пароли не совпадают!");
-      return;
-    }
-    try {
-      await axios.post("/users/register/", {
-        username: formData.username,
-        email: formData.email,
-        password: formData.password,
-      });
-      toast.success("Регистрация успешна! Теперь войдите.");
-      navigate("/login");
-    } catch (error) {
-      toast.error("Ошибка регистрации. Проверьте данные.");
-    }
+    apiClient
+      .post("/users/register/", formData)
+      .then(() => navigate("/login"))
+      .catch(() => setError("Ошибка при регистрации."));
   };
 
   return (
-    <div>
-      <h1>Регистрация</h1>
+    <div className="register-page">
+      <h2>Регистрация</h2>
+      {error && <p className="error-message">{error}</p>}
       <form onSubmit={handleSubmit}>
-        <label>Имя пользователя:</label>
         <input
           type="text"
           name="username"
-          value={formData.username}
+          placeholder="Имя пользователя"
           onChange={handleChange}
           required
         />
-        <label>Email:</label>
-        <input
-          type="email"
-          name="email"
-          value={formData.email}
-          onChange={handleChange}
-          required
-        />
-        <label>Пароль:</label>
+        <input type="email" name="email" placeholder="Email" onChange={handleChange} required />
+        <input type="password" name="password" placeholder="Пароль" onChange={handleChange} required />
         <input
           type="password"
-          name="password"
-          value={formData.password}
-          onChange={handleChange}
-          required
-        />
-        <label>Подтвердите пароль:</label>
-        <input
-          type="password"
-          name="confirmPassword"
-          value={formData.confirmPassword}
+          name="password_confirm"
+          placeholder="Подтверждение пароля"
           onChange={handleChange}
           required
         />

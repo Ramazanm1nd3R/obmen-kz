@@ -1,46 +1,45 @@
 import React, { useState } from "react";
+import apiClient from "../api/api";
 import { useNavigate } from "react-router-dom";
-import axios from "../api/api";
-import { toast } from "react-toastify";
+import "../styles/LoginPage.css";
 
 const LoginPage = () => {
-  const [formData, setFormData] = useState({ email: "", password: "" });
+  const [formData, setFormData] = useState({ username: "", password: "" });
+  const [error, setError] = useState(null);
   const navigate = useNavigate();
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
-    try {
-      const response = await axios.post("/users/auth/token/", formData);
-      localStorage.setItem("accessToken", response.data.access);
-      localStorage.setItem("refreshToken", response.data.refresh);
-      toast.success("Успешный вход!");
-      navigate("/");
-    } catch (error) {
-      toast.error("Ошибка входа. Проверьте данные.");
-    }
+    apiClient
+      .post("/users/auth/token/", formData)
+      .then((response) => {
+        localStorage.setItem("accessToken", response.data.access);
+        localStorage.setItem("refreshToken", response.data.refresh);
+        navigate("/");
+      })
+      .catch(() => setError("Неверные учетные данные."));
   };
 
   return (
-    <div>
-      <h1>Вход</h1>
+    <div className="login-page">
+      <h2>Вход</h2>
+      {error && <p className="error-message">{error}</p>}
       <form onSubmit={handleSubmit}>
-        <label>Email:</label>
         <input
-          type="email"
-          name="email"
-          value={formData.email}
+          type="text"
+          name="username"
+          placeholder="Имя пользователя"
           onChange={handleChange}
           required
         />
-        <label>Пароль:</label>
         <input
           type="password"
           name="password"
-          value={formData.password}
+          placeholder="Пароль"
           onChange={handleChange}
           required
         />
