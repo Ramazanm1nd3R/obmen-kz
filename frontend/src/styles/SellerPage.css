@@ -1,0 +1,38 @@
+.seller-page {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+    font-family: Arial, sans-serif;
+  }
+  
+  .seller-info {
+    text-align: center;
+    margin-bottom: 30px;
+  }
+  
+  .seller-avatar {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    margin-bottom: 10px;
+  }
+  
+  .seller-carts ul {
+    list-style: none;
+    padding: 0;
+  }
+  
+  .cart-item {
+    margin-bottom: 15px;
+  }
+  
+  .cart-item a {
+    text-decoration: none;
+    color: #007bff;
+    font-size: 18px;
+  }
+  
+  .cart-item a:hover {
+    text-decoration: underline;
+  }
+  
