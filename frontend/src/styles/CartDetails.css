@@ -1,72 +1,87 @@
 .cart-details-container {
-    display: flex;
-    gap: 20px;
-    padding: 20px;
-  }
-  
-  .cart-image img {
-    width: 600px;
-    height: 400px;
-    object-fit: cover;
-    border-radius: 10px;
-  }
-  
-  .cart-info {
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
-    max-width: 500px;
-  }
-  
-  .cart-title {
-    font-size: 24px;
-    font-weight: bold;
-  }
-  
-  .cart-price {
-    font-size: 20px;
-    color: #28a745;
-    font-weight: bold;
-  }
-  
-  .cart-description {
-    font-size: 16px;
-    color: #333;
-  }
-  
-  .contact-seller-button {
-    background-color: #007bff;
-    color: white;
-    border: none;
-    padding: 10px 15px;
-    border-radius: 5px;
-    cursor: pointer;
-    font-size: 16px;
-  }
-  
-  .contact-seller-button:hover {
-    background-color: #0056b3;
-  }
-  
-  .seller-info {
-    margin-top: 20px;
-    font-size: 16px;
-    color: #555;
-  }
+  display: flex;
+  justify-content: space-between;
+  margin: 20px auto;
+  max-width: 1200px;
+}
 
-  .cart-image {
-    width: 100%;
-    max-width: 400px;
-    height: auto;
-    border-radius: 8px;
-    object-fit: cover;
-  }
-  
-  .seller-avatar {
-    width: 50px;
-    height: 50px;
-    object-fit: cover;
-    border-radius: 50%;
-    margin-right: 10px;
-  }
-  
+.left-block {
+  width: 65%;
+}
+
+.cart-title {
+  font-size: 2rem;
+  font-weight: bold;
+  margin-bottom: 20px;
+}
+
+.cart-image {
+  width: 100%;
+  height: auto;
+  max-height: 400px; /* Ограничиваем максимальную высоту */
+  aspect-ratio: 4 / 3; /* Устанавливаем соотношение сторон */
+  object-fit: cover; /* Устанавливаем стиль масштабирования */
+  border-radius: 8px; /* Добавляем небольшие скругления */
+  margin-bottom: 20px;
+}
+
+
+.description-heading {
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin-top: 20px;
+}
+
+.cart-description {
+  font-size: 1rem;
+  line-height: 1.5;
+}
+
+.right-block {
+  width: 30%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.cart-price {
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin-bottom: 20px;
+}
+
+.seller-info {
+  text-align: center;
+}
+
+.seller-avatar {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-bottom: 20px;
+}
+
+.seller-name {
+  font-size: 1.2rem;
+  font-weight: bold;
+}
+
+.seller-rating {
+  font-size: 1rem;
+  margin-bottom: 20px;
+}
+
+.contact-seller-button {
+  padding: 10px 20px;
+  font-size: 1rem;
+  color: white;
+  background-color: #007bff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.contact-seller-button:hover {
+  background-color: #0056b3;
+}

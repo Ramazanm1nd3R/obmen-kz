@@ -43,16 +43,20 @@ const CartDetails = () => {
 
   return (
     <div className="cart-details-container">
-      <div className="cart-info">
+      <div className="left-block">
+        <h1 className="cart-title">{cart.title}</h1>
         <img
           src={cart.image || defaultImage}
           alt={cart.title}
           onError={handleImageError}
           className="cart-image"
         />
-        <h1>{cart.title}</h1>
-        <p>{cart.description}</p>
-        <p>Цена: {Number(cart.price).toLocaleString()} KZT</p>
+        <h3 className="description-heading">Описание</h3>
+        <p className="cart-description">{cart.description}</p>
+      </div>
+
+      <div className="right-block">
+        <p className="cart-price">Цена: {Number(cart.price).toLocaleString()} KZT</p>
         <div className="seller-info">
           <img
             src={seller.avatar || defaultAvatar}
@@ -60,20 +64,19 @@ const CartDetails = () => {
             onError={handleAvatarError}
             className="seller-avatar"
           />
-          <p>
-            Продавец:{" "}
-            <Link to={`/seller/${seller.id}`} className="seller-link">
-              {seller.username}
-            </Link>
+          <p className="seller-name">
+            Продавец: <Link to={`/seller/${seller.id}`}>{seller.username}</Link>
           </p>
-          <p>Рейтинг продавца: {seller.average_rating?.toFixed(1) || "Нет рейтинга"} / 5</p>
+          <p className="seller-rating">
+            Рейтинг продавца: {seller.average_rating?.toFixed(1) || "Нет рейтинга"} / 5
+          </p>
+          <button
+            className="contact-seller-button"
+            onClick={() => alert(`Написать продавцу: ${seller.username}`)}
+          >
+            Написать продавцу
+          </button>
         </div>
-        <button
-          className="contact-seller-button"
-          onClick={() => alert(`Написать продавцу: ${seller.username}`)}
-        >
-          Написать продавцу
-        </button>
       </div>
     </div>
   );
